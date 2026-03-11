@@ -89,25 +89,24 @@ select.inp option{background:#ffffff}
 `;
 
 // ── Gemini API Keys Pool ──────────────────────────────────
-const GEMINI_API_KEYS = [
-  "AIzaSyB3XXLRx0bBpJhCvGd9aloJZMLCiAGdH1c",
-  "AIzaSyDIMx9NazSB27MMP9n-fXJ6wWqgz_ZC-j0",
-  "AIzaSyBj4xa2hwvos69nGIonqYwB8TqTY5tMH0A",
-  "AIzaSyAkMnu2fLI_NPdn4s4x0gipe6VdOWMsKUw",
-  "AIzaSyBsZoJ9X6_Q41ES6T9NGWEtJtqLzflayko",
-  "AIzaSyDDZ-kpNuJD2_GPySsNwi4g42TnuAIYmd8",
-  "AIzaSyD40jiDjMzVcoGWnYfnHnbUObsUIXjPaFY",
-  "AIzaSyDl_LYHli0BI9oZN77Cq-LT58JngZ8V-VY",
-  "AIzaSyDdamxVtYmlnmCv2iYzJcICTBXJoBJgLwY",
-  "AIzaSyCgEqT_DBnZW9u1Rv1ilaGr1jiFlDU-Zbo"
-];
+// API keys are now stored securely on the backend
+// The frontend requests a key from the backend when needed
 
-let currentKeyIndex = 0;
+let currentApiKey = null;
 
-function getNextGeminiKey() {
-  const key = GEMINI_API_KEYS[currentKeyIndex];
-  currentKeyIndex = (currentKeyIndex + 1) % GEMINI_API_KEYS.length;
-  return key;
+async function getGeminiKey() {
+  // Get API key from backend
+  if (!currentApiKey) {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/gemini-key`);
+      const data = await response.json();
+      currentApiKey = data.apiKey;
+    } catch (error) {
+      console.error('Failed to get API key:', error);
+      throw new Error('Failed to get API key from server');
+    }
+  }
+  return currentApiKey;
 }
 
 // ── helpers ──────────────────────────────────────────────

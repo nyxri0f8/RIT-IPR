@@ -107,12 +107,12 @@ const GEMINI_API_KEYS = [
 
 ## Security Notes
 
-⚠️ **Important**: API keys are hardcoded in the frontend
-- Keys are visible in browser source code
-- Suitable for free tier with rate limits
-- For production, consider:
-  - Backend proxy for API calls
-  - Environment variables
+✅ **Secure Implementation**: API keys are now stored securely
+- Keys are stored in backend environment variables
+- Not visible in browser source code
+- Backend provides key rotation endpoint
+- Frontend requests keys from backend API
+- Suitable for production deployment
   - Key rotation service
   - Usage monitoring
 

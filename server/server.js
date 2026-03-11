@@ -243,6 +243,32 @@ app.delete('/api/patents/:id', authenticateToken, (req, res) => {
 });
 
 // ═══════════════════════════════════
+//  GEMINI API KEY ROUTE
+// ═══════════════════════════════════
+
+// Gemini API key rotation
+let currentKeyIndex = 0;
+const geminiApiKeys = process.env.GEMINI_API_KEYS ? process.env.GEMINI_API_KEYS.split(',') : [];
+
+// Get Gemini API key (with rotation)
+app.get('/api/gemini-key', (req, res) => {
+  try {
+    if (geminiApiKeys.length === 0) {
+      return res.status(500).json({ error: 'No API keys configured' });
+    }
+
+    // Get current key and rotate
+    const apiKey = geminiApiKeys[currentKeyIndex];
+    currentKeyIndex = (currentKeyIndex + 1) % geminiApiKeys.length;
+
+    res.json({ apiKey });
+  } catch (error) {
+    console.error('Get API key error:', error);
+    res.status(500).json({ error: 'Failed to get API key' });
+  }
+});
+
+// ═══════════════════════════════════
 //  STATS ROUTES
 // ═══════════════════════════════════
 
