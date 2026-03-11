@@ -1,153 +1,189 @@
-# RIT IPR 🎓
+# RIT IPR Portal 🚀
 
-**Rajalakshmi Institute of Technology**  
-AI-Powered Patent Filing Assistant for Indian Patent Office (IPO)
+AI-powered patent filing system for Rajalakshmi Institute of Technology
 
-*Believe in the Possibilities*
+[![Deploy](https://img.shields.io/badge/Deploy-Live-success)](https://vercel.com)
+[![Backend](https://img.shields.io/badge/Backend-Railway-blue)](https://railway.app)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+## 🎯 Overview
+
+Complete full-stack patent filing system with AI-powered analysis, automatic form generation, and professional PDF output. Built specifically for Rajalakshmi Institute of Technology.
 
 ## ✨ Features
 
-### 🔐 User Authentication
-- Secure login and registration system
-- Cookie-based session management (30-day auto-login)
-- API key storage for Claude and Gemini
-- No server required - all data stored locally
+- 🤖 **AI Analysis** - Gemini AI powered patent analysis
+- 📄 **Smart Upload** - PDF, DOC, DOCX, and image support with OCR
+- 🎨 **Auto-Fill** - Intelligent form filling from uploaded documents
+- 📊 **Scoring System** - Innovation, novelty, and readiness scores
+- 📝 **Form Generation** - All Indian Patent Office forms (Form 1, 2, 3, 5, 26, NOC)
+- 💾 **Database Storage** - Secure backend with user authentication
+- 📱 **Responsive Design** - Works on desktop, tablet, and mobile
+- 🔐 **Secure Auth** - JWT token-based authentication
+- 📈 **Statistics** - Track your patents and scores
+- 🏛️ **Default Institution** - Auto-set to "Rajalakshmi Institute of Technology"
 
-### 🤖 Dual AI Support
-- **Claude Sonnet 4**: Direct browser access or API key
-- **Gemini 2.0 Flash**: Free API key from Google AI Studio
-- Switch between models for best results
+## 🚀 Quick Start
 
-### 📊 Comprehensive Patent Analysis
-- Innovation, Novelty, and Readiness scoring
-- Prior art search and comparison
-- Patent abstract generation
-- Technical description drafting
-- Patent claims creation
-- IPC classification codes
-- Grant probability assessment
-
-### 📄 Professional PDF Reports
-- Beautifully formatted patent reports
-- RIT branding and color scheme
-- Multi-page support with auto-pagination
-- Tables for scores, inventors, and IPC codes
-- Downloadable with descriptive filenames
-
-### 📋 IPO Form Generation
-- Auto-generates all Indian Patent Office forms
-- Form 1, 2, 3, 5, 26 + NOC documents
-- Pre-filled with your details
-- Ready for submission
-
-### 🎨 Modern UI/UX
-- Clean white, blue, and orange color scheme
-- RIT logo and branding throughout
-- Responsive design for all devices
-- Professional academic appearance
-
-## About
-
-Developed for Rajalakshmi Institute of Technology to streamline the patent filing process for students, faculty, and researchers. This platform leverages cutting-edge AI to make intellectual property protection accessible and efficient.
-
-## Quick Start
-
-### Installation
+### Local Development
 
 ```bash
+# Clone repository
+git clone https://github.com/YOUR_USERNAME/rit-ipr-portal.git
+cd rit-ipr-portal
+
+# Install dependencies
 npm install
+cd server && npm install && cd ..
+
+# Start both servers
+# Windows:
+start-dev.bat
+
+# Linux/Mac:
+chmod +x start-dev.sh
+./start-dev.sh
 ```
 
-### Development
+Access:
+- Frontend: http://localhost:5173
+- Backend: http://localhost:5000
 
-```bash
-npm run dev
+### Deploy to Production
+
+See [DEPLOY_NOW.md](DEPLOY_NOW.md) for step-by-step deployment guide.
+
+## 📁 Project Structure
+
+```
+rit-ipr-portal/
+├── src/                    # Frontend React app
+│   ├── App.jsx            # Main application
+│   ├── api.js             # API service layer
+│   └── main.jsx           # Entry point
+├── server/                # Backend Node.js server
+│   ├── server.js          # Express server
+│   ├── database-json.js   # Database operations
+│   └── package.json       # Backend dependencies
+├── public/                # Static assets
+├── Documentation/         # Comprehensive guides
+└── package.json           # Frontend dependencies
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+## 🛠️ Tech Stack
 
-### First Time Setup
+### Frontend
+- React 18.3.1
+- Vite 5.4.11
+- jsPDF (PDF generation)
+- Tesseract.js (OCR)
+- PDF.js (PDF parsing)
+- Mammoth.js (Word parsing)
 
-1. Create an account with your details
-2. (Optional) Add API keys for AI models
-3. Start filing patents!
+### Backend
+- Node.js + Express
+- JWT Authentication
+- bcryptjs (Password hashing)
+- JSON file database
+- CORS enabled
 
-### Build for Production
+### AI
+- Google Gemini 3 Flash
+- 10 API keys with rotation
+- Automatic analysis
 
-```bash
-npm run build
-```
+## 📖 Documentation
 
-The production-ready files will be in the `dist` folder.
+- [Quick Start](QUICKSTART.md)
+- [Full Stack Setup](FULLSTACK_SETUP.md)
+- [Deployment Guide](GITHUB_DEPLOYMENT.md)
+- [Deploy Now](DEPLOY_NOW.md)
+- [Backend Setup](BACKEND_SETUP.md)
+- [API Documentation](server/README.md)
+- [User Guide](USER_GUIDE.md)
+- [Features](FEATURES.md)
 
-## Documentation
+## 🎓 For Students
 
-- **[USER_GUIDE.md](USER_GUIDE.md)** - Complete user guide for filing patents
-- **[FEATURES.md](FEATURES.md)** - Detailed feature documentation
-- **[DEPLOYMENT.md](DEPLOYMENT.md)** - Deployment instructions
-- **[COLOR_SCHEME.md](COLOR_SCHEME.md)** - Design system documentation
+This system is designed for:
+- Final year projects
+- Research patent filing
+- Innovation documentation
+- IPR cell submissions
 
-## Deployment Options
+Default institution is automatically set to "Rajalakshmi Institute of Technology".
 
-### 1. Vercel (Recommended)
-```bash
-npm install -g vercel
-vercel
-```
+## 🔐 Security
 
-### 2. Netlify
-```bash
-npm run build
-# Drag and drop the 'dist' folder to netlify.com/drop
-```
+- Password hashing with bcrypt
+- JWT token authentication (30-day expiry)
+- Protected API routes
+- SQL injection prevention
+- CORS protection
+- Environment variables for secrets
 
-### 3. GitHub Pages
-```bash
-npm run build
-# Push the 'dist' folder to gh-pages branch
-```
+## 📊 Database Schema
 
-### 4. Cloudflare Pages
-- Connect your GitHub repo
-- Build command: `npm run build`
-- Output directory: `dist`
+### Users
+- id, name, email, password (hashed)
+- institution (default: "Rajalakshmi Institute of Technology")
+- department, role, timestamps
 
-## API Keys
+### Patents
+- id, user_id, title, problem, components
+- working, industry, unique_features
+- scores (innovation, novelty, readiness, grant probability)
+- analysis_data (JSON), applicant_data (JSON)
+- status, timestamps
 
-- **Claude**: Uses direct browser access (no key needed)
-- **Gemini**: Get free API key from [Google AI Studio](https://aistudio.google.com/apikey)
+## 🌐 API Endpoints
 
-## Tech Stack
+### Authentication
+- `POST /api/auth/register` - Create account
+- `POST /api/auth/login` - Login
+- `GET /api/auth/me` - Get current user
 
-- React 18
-- Vite
-- jsPDF + jsPDF-AutoTable (PDF generation)
-- js-cookie (session management)
-- Claude API (Anthropic)
-- Gemini API (Google)
+### Patents
+- `POST /api/patents` - Create patent
+- `GET /api/patents` - Get user's patents
+- `GET /api/patents/:id` - Get single patent
+- `PATCH /api/patents/:id` - Update patent
+- `DELETE /api/patents/:id` - Delete patent
 
-## Key Dependencies
+### Statistics
+- `GET /api/stats` - Get user statistics
 
-```json
-{
-  "react": "^18.3.1",
-  "react-dom": "^18.3.1",
-  "jspdf": "^2.5.2",
-  "jspdf-autotable": "^3.8.4",
-  "js-cookie": "^3.0.5"
-}
-```
+## 🎨 Design
 
-## Institution
+- Modern gradient design
+- Space Grotesk & Syne fonts
+- RIT color scheme (Navy Blue & Orange)
+- Smooth animations
+- Responsive layout
 
-**Rajalakshmi Institute of Technology**  
-Chennai, Tamil Nadu, India  
-[www.ritchennai.edu.in](https://www.ritchennai.edu.in)
+## 📝 License
 
-## License
+MIT License - feel free to use for educational purposes
 
-MIT
+## 👥 Contributors
+
+Built for Rajalakshmi Institute of Technology
+
+## 🆘 Support
+
+For issues or questions:
+1. Check the documentation
+2. Review troubleshooting guides
+3. Create an issue on GitHub
+
+## 🎉 Acknowledgments
+
+- Rajalakshmi Institute of Technology
+- Google Gemini AI
+- Open source community
 
 ---
 
-*Developed with ❤️ for RIT Innovation & IPR Cell*
+**Made with ❤️ for RIT**
+
+[Live Demo](https://your-app.vercel.app) | [Documentation](FULLSTACK_SETUP.md) | [Deploy Guide](DEPLOY_NOW.md)
