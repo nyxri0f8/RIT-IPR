@@ -98,7 +98,8 @@ async function getGeminiKey() {
   // Get API key from backend
   if (!currentApiKey) {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/gemini-key`);
+      const API_URL = import.meta.env.VITE_API_URL || '/api';
+      const response = await fetch(`${API_URL}/gemini-key`);
       const data = await response.json();
       currentApiKey = data.apiKey;
     } catch (error) {

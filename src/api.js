@@ -1,5 +1,8 @@
 // API Service for RIT IPR Backend
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// When deployed together, use relative path. When separate, use environment variable.
+const API_URL = import.meta.env.VITE_API_URL || '/api';
+
+console.log('API URL configured:', API_URL);
 
 // Helper function to get auth token
 const getToken = () => localStorage.getItem('rit_ipr_token');
