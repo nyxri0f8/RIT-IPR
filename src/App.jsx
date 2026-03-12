@@ -747,8 +747,10 @@ export default function App() {
   // ── AI Analyze ──
   async function analyze(){
     setScreen("loading"); setErr("");
-    const apiKey = getNextGeminiKey(); // Get next API key from pool
-    const prompt=`You are a senior patent attorney. Analyze this invention and return ONLY raw JSON, no markdown, no backticks.
+    
+    try {
+      const apiKey = await getGeminiKey(); // Use the existing getGeminiKey function
+      const prompt=`You are a senior patent attorney. Analyze this invention and return ONLY raw JSON, no markdown, no backticks.
 
 Invention:
 Title: ${inv.title}
@@ -760,14 +762,19 @@ Unique: ${inv.unique}
 
 Return this exact JSON with specific realistic values:
 {"domain":"specific tech domain","patentType":"Utility Patent","innovationScore":82,"marketPotential":"High","noveltyScore":76,"noveltyReasons":["specific reason 1","specific reason 2","specific reason 3"],"patentabilityVerdict":"Strong","similarPatents":[{"title":"Real patent name","year":2020,"similarity":24,"office":"USPTO"},{"title":"Real patent name 2","year":2018,"similarity":19,"office":"WIPO"},{"title":"Real patent name 3","year":2021,"similarity":31,"office":"IPO"}],"abstract":"Two full paragraphs of proper legal patent abstract specific to this invention...","technicalDescription":"Detailed technical description of this specific invention...","claims":["1. A system comprising: specific independent claim...","2. The system of claim 1, wherein specific detail...","3. The system of claim 1, further comprising specific element...","4. A method for purpose of this invention comprising steps...","5. The method of claim 4, wherein specific dependent detail..."],"ipcCodes":[{"code":"G06F 21/00","description":"Description of why this code applies"},{"code":"H04L 29/06","description":"Description"},{"code":"G08B 21/18","description":"Description"}],"readinessScore":78,"recommendation":"Ready to File","nextSteps":["Specific action 1","Specific action 2","Specific action 3"],"filingCost":"₹8,000 - ₹15,000","grantProbability":71,"grantFactors":["Specific factor 1","Specific factor 2","Specific factor 3"]}`;
-    try{
-      const parsed=await callGemini(prompt, apiKey);
+      
+      const parsed = await callGemini(prompt, apiKey);
       setData(parsed);
       // Pre-fill applicant form with invention title
       setApplicant(p=>({...p}));
       setScreen("results");
       setTimeout(()=>topRef.current?.scrollIntoView({behavior:"smooth"}),100);
-    }catch(e){setScreen("form");setErr("Analysis failed: " + (e.message||"Unknown error. Please try again."));}
+    } catch(e) {
+      console.error('Analysis error:', e);
+      setScreen("form");
+      setErr("Analysis failed: " + (e.message || "Unknown error. Please try again."));
+    }
+  }
   }
 
   // ── Generate Forms via Claude ──
