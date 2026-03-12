@@ -775,7 +775,6 @@ Return this exact JSON with specific realistic values:
       setErr("Analysis failed: " + (e.message || "Unknown error. Please try again."));
     }
   }
-  }
 
   // ── Generate Forms via Claude ──
   async function generateForms(){
